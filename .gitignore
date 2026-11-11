@@ -1,8 +1,31 @@
-__pycache__/
-*.py[cod]
-.ipynb_checkpoints/
+# Entornos de Python
 .venv/
 venv/
 env/
+
+# Archivos generados por Python y Jupyter
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Configuración local y variables privadas
+.vscode/
 .env
+.env.*
+!.env.example
+
+# Archivos temporales del sistema y del editor
 .DS_Store
+Thumbs.db
+Desktop.ini
+*.tmp
+*.swp
+*~
+
+# Material personal: no forma parte de la entrega
+Material personal - no entregar/
+APOYO_PERSONAL_5_4.md
+GUIA_REVISION_Y_DEFENSA.md
+
+# Los CSV, el notebook y los gráficos de salidas/ sí se incluyen en Git.

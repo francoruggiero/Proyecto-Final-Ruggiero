@@ -1,7 +1,14 @@
-numpy
-pandas>=2.0
-matplotlib
-seaborn
-plotly
-jupyter
-ipykernel
+# Versiones utilizadas con Python 3.11.9.
+# Paquetes para el análisis y los gráficos.
+numpy==2.2.6
+pandas==2.2.3
+matplotlib==3.10.3
+seaborn==0.13.2
+plotly==7.1.0
+
+# Visualización de tablas y ejecución del notebook en VS Code.
+ipython==9.0.2
+ipykernel==6.29.5
+
+# Necesario para mostrar las figuras de Plotly dentro del notebook.
+nbformat==5.11.1

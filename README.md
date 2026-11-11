@@ -1,49 +1,66 @@
-# Proyecto Final - Arroyo Capital
+# Proyecto Final — Arroyo Capital
 
-Analisis de inversion y portafolio en la industria del cine para Programacion Analitica II.
+Trabajo individual de Programación Analítica II sobre inversión en la industria del cine.
 
-## Contenido
+El objetivo es proponer cómo distribuir USD 500 millones entre proyectos cinematográficos durante tres años. Para fundamentar la propuesta, analizo la calidad de los datos, comparo resultados y riesgos, y presento los principales hallazgos con gráficos.
 
-- datos/peliculas.csv: base historica de peliculas.
-- datos/ipc_eeuu.csv: indice de precios de Estados Unidos.
-- notebooks/proyecto_final_cine_Ruggiero.ipynb: analisis reproducible.
-- salidas/: graficos exportados en HTML y PNG.
-- salidas/correlaciones_peliculas.png: mapa de calor exportado para consultar o presentar.
-- .gitignore: archivos locales que no deben subirse al repositorio.
-- Proyecto Final B - Portafolio de cine.pdf: consigna del proyecto.
+## Archivos del proyecto
 
-## Como reproducir
+- [Notebook del proyecto](notebooks/proyecto_final_cine_Ruggiero.ipynb): análisis completo, código, resultados y conclusiones.
+- [Películas](datos/peliculas.csv): base histórica utilizada en el análisis.
+- [IPC de Estados Unidos](datos/ipc_eeuu.csv): índice utilizado para expresar los importes en dólares constantes de 2020.
+- [Gráficos exportados](salidas/): figuras en PNG y gráficos interactivos en HTML.
+- [Dependencias](requirements.txt): paquetes y versiones del entorno utilizado.
+- [Archivos excluidos de Git](.gitignore): entornos locales, archivos temporales y material personal.
 
-Verificado con Python 3.11.9 y pandas 2.2.3. Desde PowerShell, ubicarse en la carpeta raiz del proyecto y ejecutar:
+La consigna de referencia es «Proyecto Final B — Portafolio de cine», proporcionada en el curso.
 
-```powershell
-py -3.11 -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe -m jupyter lab
-```
+## Cómo ejecutar el análisis
 
-Abrir `notebooks/proyecto_final_cine_Ruggiero.ipynb`, seleccionar el kernel de ese entorno y ejecutar todas las celdas en orden desde el comienzo. En VS Code se puede abrir el mismo archivo y usar «Reiniciar kernel y ejecutar todo».
+El notebook se verificó con Python 3.11.9. Para reproducirlo en VS Code:
 
-La notebook usa rutas relativas a la carpeta `notebooks`, por lo que debe conservarse la estructura del repositorio. Al ejecutar la etapa IV se regeneran los archivos de `salidas/`.
+1. Abrir la carpeta del proyecto y tener instaladas las extensiones Python y Jupyter de VS Code.
+2. Desde una terminal de PowerShell ubicada en esa carpeta, crear un entorno e instalar las dependencias:
 
-## Etapas incluidas
+   ```powershell
+   py -3.11 -m venv .venv
+   .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+   ```
 
-- Etapa 1, secciones 1.1 a 1.12: carga, revision, limpieza, presupuesto faltante e IPC.
-- Etapa 2, seccion 2.1: importes constantes de 2020, retorno e indicador de recuperacion segun la regla de 2,5x.
-- Etapa 3, secciones 3.1 a 3.3: evolucion nominal y real, retorno por genero y franquicia, relacion con IMDb, riesgo y dominancia.
-- Etapa 4, secciones 4.1 a 4.4: evolucion nominal/real, distribucion del retorno, comparacion por genero y dispersion presupuesto-recaudacion. Cada grafico tiene una conclusion debajo. La evolucion queda en una unica figura interactiva de Plotly y muestra 1980-2019; 2020 sigue en la tabla anual pero se excluye de la tendencia por tener solo 15 recaudaciones informadas entre 25 peliculas.
-- Etapa 5, secciones 5.1 a 5.3: propuesta para USD 500 millones. Primero se comparan grupos, luego se explica el reparto y se verifica el costo por proyecto; después se calcula retorno y riesgo. La conclusión para inversionistas, con las decisiones y limitaciones del análisis, está en 5.3.
+3. Abrir el [notebook](notebooks/proyecto_final_cine_Ruggiero.ipynb) y seleccionar como kernel el entorno `.venv` recién creado.
+4. Usar «Reiniciar kernel y ejecutar todo», ejecutando las celdas desde el comienzo.
 
-El 28,94 % de las peliculas de la base limpia no tiene presupuesto. Se conservan para los analisis donde no se necesita y se excluyen del retorno, la dispersion y la tesis; no se imputan como cero. En la etapa 1 se eliminan 58 duplicados exactos y 14 versiones alternativas con ID 90xxx; se corrige el signo de 11 recaudaciones y se multiplican por 1.000 los 40 presupuestos cargados en escala de miles. Estas decisiones se verificaron contra el [CSV original del autor](https://github.com/danielgrijalva/movie-stats/blob/master/movies.csv). La lista de ID corregidos queda en el notebook y la ejecucion no requiere Internet; los presupuestos bajos genuinos se conservan. En la dispersion solo entran importes positivos y conocidos; los ejes usan dolares constantes de 2020 y escala logaritmica para mostrar todos los tamanos sin recortar extremos. Los colores y la linea de referencia distinguen las peliculas que superan 2,5 veces el presupuesto de las que no.
+Hay que conservar la estructura de carpetas: el notebook busca los CSV en `../datos/` y guarda las figuras en `../salidas/`, tomando como punto de partida su carpeta. En la etapa 4 se regeneran los gráficos exportados. La ejecución utiliza los archivos locales y no necesita descargar datos; la instalación inicial de paquetes sí puede requerir Internet.
 
-El retorno se presenta como multiplo de recaudacion mundial sobre presupuesto de produccion. No es una ganancia neta del estudio, porque la consigna advierte que faltan marketing, distribucion y la participacion del exhibidor.
+## Organización del notebook
 
-La referencia de planificación ponderando medianas es 3,09 veces y no es una promesa de ganancia neta. La frecuencia simulada de no superar el umbral de 2,5 veces es 6,8 %; depende de independencia entre proyectos y de usar el pasado como referencia. No hubo validación fuera de muestra. El conteo histórico anual no mide la oferta de franquicias accesibles al fondo.
+- **Etapa 1 — Revisión y limpieza (1.1–1.12):** carga de archivos, tipos de datos, duplicados, valores incorrectos, faltantes y unión con el IPC.
+- **Etapa 2 — Variables para comparar (2.1):** presupuesto y recaudación constantes, retorno y recuperación según la regla del caso.
+- **Etapa 3 — Análisis de resultados y riesgos (3.1–3.3):** evolución de la recaudación, comparación por género y franquicia, relación con IMDb y comparación de segmentos.
+- **Etapa 4 — Visualización (4.1–4.4):** evolución nominal y real, distribución del retorno, comparación por género y dispersión entre presupuesto y recaudación. Cada gráfico tiene su conclusión.
+- **Etapa 5 — Propuesta de inversión (5.1–5.3):** definición de grupos, distribución de los USD 500 millones, cantidad y costo de los proyectos, estimación del retorno y del riesgo, y conclusión para los inversionistas.
 
-Para la etapa 5, el riesgo de perder capital se aproxima mediante esa regla de recuperación de 2,5 veces; no es una estimación de la pérdida contractual neta del fondo. Los cortes de presupuesto se calculan sobre las 5.389 películas con retorno válido y después se seleccionan las franquicias de cada tramo.
+## Gráficos para consultar
 
-## Lectura del análisis
+Los archivos HTML se pueden abrir en un navegador y permiten consultar información al pasar el cursor:
 
-Para una primera lectura, seguir los textos «Qué encontramos» y «Decisión» del cuaderno y terminar en 5.3. Para revisar un cálculo, consultar las tablas de cada etapa. Los motivos de las decisiones se explican junto al paso correspondiente, no solo al final.
+- [Evolución de la recaudación nominal y real](salidas/evolucion_industria_interactiva.html).
+- [Retorno mediano por género](salidas/retorno_mediano_por_genero_interactiva.html).
+- [Presupuesto y recaudación](salidas/presupuesto_recaudacion_interactiva.html).
 
-La revisión local no equivale a la entrega: hay que comprobar que el repositorio de GitHub contiene esta versión, agregar al otro integrante como colaborador si corresponde y enviar el enlace por el medio solicitado. La presentación ejecutiva sigue siendo una instancia separada.
+También se incluyen la [distribución del retorno](salidas/distribucion_retorno.png) y el [mapa de correlaciones](salidas/correlaciones_peliculas.png). GitHub puede mostrar el código de los HTML en lugar del gráfico: para interactuar con ellos, descargar el archivo y abrirlo en un navegador.
+
+## Decisiones importantes para interpretar los resultados
+
+- **Presupuestos faltantes:** el 28,94 % de las películas de la base limpia no tiene presupuesto informado. Esas películas se conservan donde el análisis no necesita ese dato, pero se excluyen del cálculo del retorno, de la dispersión y de la propuesta de inversión. No se reemplazan los faltantes por cero.
+- **Correcciones de la base:** se eliminan 58 duplicados exactos y 14 versiones alternativas con ID 90xxx. Se corrige el signo de 11 recaudaciones y se multiplican por 1.000 los 40 presupuestos identificados en escala de miles. El detalle queda en la etapa 1; no se modifican los CSV originales ni se corrigen todos los presupuestos pequeños por igual. Los casos se cotejaron con la [base original de películas](https://github.com/danielgrijalva/movie-stats/blob/master/movies.csv).
+- **Comparación entre años:** los importes reales se expresan en dólares de 2020. El gráfico de evolución muestra 1980–2019; 2020 permanece en la tabla, pero no en la curva porque solo tiene 15 recaudaciones informadas entre 25 películas.
+- **Qué significa el retorno:** es la recaudación mundial dividida por el presupuesto de producción. Por ejemplo, 3 veces significa recaudar USD 3 por cada USD 1 de presupuesto, no ganar USD 3 netos. Para considerar recuperada una película, la regla de la consigna exige superar 2,5 veces el presupuesto.
+- **Dispersión:** solo se muestran presupuestos y recaudaciones positivos y conocidos. La escala logarítmica permite ver películas de tamaños muy diferentes, y la línea de referencia y los colores distinguen cuáles superan el umbral de 2,5 veces.
+- **Propuesta de inversión:** usando las medianas de los grupos, la referencia de recaudación es 3,09 veces el capital. En la simulación, el 6,8 % de las carteras no supera 2,5 veces. Esa frecuencia se usa como aproximación al riesgo de no recuperar según la regla del caso, no como una medición de la pérdida neta contractual del fondo.
+
+## Alcance y limitaciones
+
+La recaudación de boletería no es ganancia neta: faltan costos y condiciones de distribución para calcular cuánto recibiría el inversionista. Además, los resultados dependen de los datos disponibles, del comportamiento histórico y del supuesto de independencia entre proyectos en la simulación. No se realizó una validación fuera de muestra ni se demuestra que el fondo tenga acceso a los proyectos propuestos.
+
+La conclusión final está en 5.3. La propuesta sirve para orientar una decisión y explicar sus riesgos, no para garantizar un rendimiento.
